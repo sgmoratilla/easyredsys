@@ -15,12 +15,7 @@ import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ServiceException;
-import javax.xml.ws.Service;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 
 @RunWith(Arquillian.class)
 public class ArquillianTest {
@@ -29,7 +24,7 @@ public class ArquillianTest {
     URL deploymentUrl;
 
     @Deployment
-    public static WebArchive createDeployment() {
+    public templates WebArchive createDeployment() {
         return ShrinkWrap.create(EmbeddedGradleImporter.class)
                 .forThisProjectDirectory()
                 .importBuildOutput()

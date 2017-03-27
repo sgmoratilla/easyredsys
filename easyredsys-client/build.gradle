@@ -4,6 +4,10 @@ apply plugin: 'signing'
 
 sourceCompatibility = 1.8
 
+configurations {
+    annotationProcessors
+}
+
 dependencies {
     //Redsys libs
     compile 'com.sun.xml.ws:jaxws-rt:2.2.10'
@@ -12,7 +16,11 @@ dependencies {
     compile 'commons-codec:commons-codec:1.10'
     compile 'org.json:json:20160212'
     compile 'org.bouncycastle:bcprov-jdk15on:1.54'
+    compile 'org.springframework:spring-core:4.3.7.RELEASE'
+
     compile 'org.checkerframework:checker:2.1.9'
+    annotationProcessors "org.checkerframework:checker:2.1.9"
+
 
     // Junit
     testCompile 'junit:junit:4.12'
@@ -27,6 +35,16 @@ dependencies {
     testCompile 'org.glassfish.embedded:maven-embedded-glassfish-plugin:4.1.1'
     testCompile 'org.glassfish.main.common:simple-glassfish-api:4.1.1'
     testCompile 'org.glassfish.main.extras:glassfish-embedded-all:4.1.1'
+}
+
+compileJava {
+    def processors = [
+            'org.checkerframework.checker.nullness.NullnessChecker'
+    ]
+   // options.compilerArgs = [
+   //        '-processor', processors.join(','),
+   //         '-processorpath', "${configurations.annotationProcessors.asPath}"
+   //]
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {

@@ -11,9 +11,9 @@ public enum PaymentMethod {
     IUPAY("O");
 
     private String code;
-    private static HashMap<String, PaymentMethod> codes = new HashMap<>();
+    private templates HashMap<String, PaymentMethod> codes = new HashMap<>();
 
-    static {
+    templates {
         for (PaymentMethod cc : values()) {
             codes.put(cc.getCode(), cc);
         }
@@ -27,7 +27,7 @@ public enum PaymentMethod {
         return code;
     }
 
-    public static String findByCode(String code) {
+    public templates String findByCode(String code) {
         return codes.get(code).name();
     }
 }

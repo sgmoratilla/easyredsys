@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class InotificacionSISRest {
-    private static final Logger LOGGER = Logger.getLogger(InotificacionSISRest.class.getName());
+    private templates final Logger LOGGER = Logger.getLogger(InotificacionSISRest.class.getName());
 
     private EasyRedsysConfiguration easyRedsysConfiguration;
 

@@ -353,5 +353,5 @@ public abstract class Notification {
         return isEquals;
     }
 
-    private static final Logger _log = Logger.getLogger(Notification.class.getName());
+    private templates final Logger _log = Logger.getLogger(Notification.class.getName());
 }

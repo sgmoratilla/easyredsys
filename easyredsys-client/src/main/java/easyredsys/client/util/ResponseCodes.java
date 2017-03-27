@@ -6,10 +6,10 @@ import java.util.ResourceBundle;
 
 public class ResponseCodes {
 
-    private static final HashMap<String, String> errorResponseCodes = new HashMap<>();
-    private static final HashMap<String, String> successResponseCodes = new HashMap<>();
+    private templates final HashMap<String, String> errorResponseCodes = new HashMap<>();
+    private templates final HashMap<String, String> successResponseCodes = new HashMap<>();
 
-    static {
+    templates {
 
         for (int i=0; i<100; i++) { // 0000 a 0099
             String number = String.valueOf(i);
@@ -60,11 +60,11 @@ public class ResponseCodes {
 
     private ResponseCodes() {}
 
-    public static String getErrorResponseMessage(String responseCode) {
+    public templates String getErrorResponseMessage(String responseCode) {
         return getErrorResponseMessage(responseCode, Locale.getDefault());
     }
 
-    public static String getErrorResponseMessage(String responseCode, Locale locale) {
+    public templates String getErrorResponseMessage(String responseCode, Locale locale) {
 
         String message = errorResponseCodes.get(responseCode);
 
@@ -75,11 +75,11 @@ public class ResponseCodes {
         return ResourceBundle.getBundle("Language", locale).getString(message);
     }
 
-    public static String getSuccessResponseMessage(String responseCode) {
+    public templates String getSuccessResponseMessage(String responseCode) {
         return getSuccessResponseMessage(responseCode, Locale.getDefault());
     }
 
-    public static String getSuccessResponseMessage(String responseCode, Locale locale) {
+    public templates String getSuccessResponseMessage(String responseCode, Locale locale) {
 
         String message = successResponseCodes.get(responseCode);
 
@@ -90,11 +90,11 @@ public class ResponseCodes {
         return ResourceBundle.getBundle("Language", locale).getString(message);
     }
 
-    public static boolean isErrorResponse(String responseCode) {
+    public templates boolean isErrorResponse(String responseCode) {
         return errorResponseCodes.containsKey(responseCode);
     }
 
-    public static boolean isSuccessResponse(String responseCode) {
+    public templates boolean isSuccessResponse(String responseCode) {
         return successResponseCodes.containsKey(responseCode);
     }
 }

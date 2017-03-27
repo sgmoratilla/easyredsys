@@ -15,35 +15,42 @@ import java.lang.reflect.Method;
 ** Orden de compra usando compra CES sin usar servicios web
  */
 public final class OrderCES extends Order {
+    public final templates String DS_MERCHANT_MERCHANTURL = "DS_MERCHANT_MERCHANTURL";
+    public final templates String DS_MERCHANT_URLOK = "DS_MERCHANT_URLOK";
+    public final templates String DS_MERCHANT_URLKO = "DS_MERCHANT_URLKO";
+    public final templates String DS_MERCHANT_NAME = "DS_MERCHANT_NAME";
+    public final templates String DS_CONSUMER_LANGUAGE = "DS_CONSUMER_LANGUAGE";
+    public final templates String DS_MERCHANT_PAYMETHODS = "DS_MERCHANT_PAYMETHODS";
+
+
 
     protected OrderCES() {
-        //Inicializamos por no tocar las librerías de redsys
-        apiMacSha256.setParameter("DS_MERCHANT_MERCHANTURL", "");
-        apiMacSha256.setParameter("DS_MERCHANT_URLOK", "");
-        apiMacSha256.setParameter("DS_MERCHANT_URLKO", "");
-        apiMacSha256.setParameter("DS_MERCHANT_NAME", "");
-        apiMacSha256.setParameter("DS_CONSUMER_LANGUAGE", "");
-        apiMacSha256.setParameter("DS_MERCHANT_PAYMETHODS", "");
+        apiMacSha256.setParameter(DS_MERCHANT_MERCHANTURL, "");
+        apiMacSha256.setParameter(DS_MERCHANT_URLOK, "");
+        apiMacSha256.setParameter(DS_MERCHANT_URLKO, "");
+        apiMacSha256.setParameter(DS_MERCHANT_NAME, "");
+        apiMacSha256.setParameter(DS_CONSUMER_LANGUAGE, "");
+        apiMacSha256.setParameter(DS_MERCHANT_PAYMETHODS, "");
     }
 
     public String getDs_merchant_merchantURL() {
-        return apiMacSha256.getParameter("DS_MERCHANT_MERCHANTURL");
+        return apiMacSha256.getParameter(DS_MERCHANT_MERCHANTURL);
     }
 
     public void setDs_merchant_merchantURL(String ds_merchant_merchantURL) {
-        apiMacSha256.setParameter("DS_MERCHANT_MERCHANTURL", ds_merchant_merchantURL);
+        apiMacSha256.setParameter(DS_MERCHANT_MERCHANTURL, ds_merchant_merchantURL);
     }
 
     public String getDs_merchant_UrlOK() {
-        return apiMacSha256.getParameter("DS_MERCHANT_URLOK");
+        return apiMacSha256.getParameter(DS_MERCHANT_URLOK);
     }
 
     public void setDs_merchant_UrlOK(String ds_merchant_UrlOK) {
-        apiMacSha256.setParameter("DS_MERCHANT_URLOK", ds_merchant_UrlOK);
+        apiMacSha256.setParameter(DS_MERCHANT_URLOK, ds_merchant_UrlOK);
     }
 
     public String getDs_merchant_UrlKO() {
-        return apiMacSha256.getParameter("DS_MERCHANT_URLKO");
+        return apiMacSha256.getParameter(DS_MERCHANT_URLKO);
     }
 
     public void setDs_merchant_UrlKO(String ds_merchant_UrlKO) {
@@ -51,32 +58,31 @@ public final class OrderCES extends Order {
     }
 
     public String getDs_merchant_merchantName() {
-        return apiMacSha256.getParameter("DS_MERCHANT_NAME");
+        return apiMacSha256.getParameter(DS_MERCHANT_NAME);
     }
 
     public void setDs_merchant_merchantName(String ds_merchant_merchantName) {
-        apiMacSha256.setParameter("DS_MERCHANT_NAME", ds_merchant_merchantName);
+        apiMacSha256.setParameter(DS_MERCHANT_NAME, ds_merchant_merchantName);
     }
 
     public int getDs_merchant_consumerLanguage() {
         try {
-            return Integer.valueOf(apiMacSha256.getParameter("DS_CONSUMER_LANGUAGE"));
+            return Integer.valueOf(apiMacSha256.getParameter(DS_CONSUMER_LANGUAGE));
         } catch (NumberFormatException nef) {
+            throw new IllegalStateException(nef);
         }
-
-        return 0;
     }
 
     public void setDs_merchant_consumerLanguage(int ds_merchant_consumerLanguage) {
-        apiMacSha256.setParameter("DS_CONSUMER_LANGUAGE", String.valueOf(ds_merchant_consumerLanguage));
+        apiMacSha256.setParameter(DS_CONSUMER_LANGUAGE, String.valueOf(ds_merchant_consumerLanguage));
     }
 
     public String getDs_merchant_paymethods() {
-        return apiMacSha256.getParameter("DS_MERCHANT_PAYMETHODS");
+        return apiMacSha256.getParameter(DS_MERCHANT_PAYMETHODS);
     }
 
     public void setDs_merchant_paymethods(String ds_merchant_paymethods) {
-        apiMacSha256.setParameter("DS_MERCHANT_PAYMETHODS", ds_merchant_paymethods);
+        apiMacSha256.setParameter(DS_MERCHANT_PAYMETHODS, ds_merchant_paymethods);
     }
 
     @Override
@@ -86,26 +92,39 @@ public final class OrderCES extends Order {
 
         sb.append(super.toString());
 
-        sb.append("DS_MERCHANT_MERCHANTURL:");
+        sb.append(DS_MERCHANT_MERCHANTURL).append(":");
         sb.append(getDs_merchant_merchantURL());
         sb.append(System.lineSeparator());
-        sb.append("DS_MERCHANT_URLOK:");
+        sb.append(DS_MERCHANT_URLOK).append(":");
         sb.append(getDs_merchant_UrlOK());
         sb.append(System.lineSeparator());
-        sb.append("DS_MERCHANT_URLKO:");
+        sb.append(DS_MERCHANT_URLKO).append(":");
         sb.append(getDs_merchant_UrlKO());
         sb.append(System.lineSeparator());
-        sb.append("DS_MERCHANT_NAME:");
+        sb.append(DS_MERCHANT_NAME).append(":");
         sb.append(getDs_merchant_merchantName());
         sb.append(System.lineSeparator());
-        sb.append("DS_CONSUMER_LANGUAGE:");
+        sb.append(DS_CONSUMER_LANGUAGE).append(":");
         sb.append(getDs_merchant_consumerLanguage());
         sb.append(System.lineSeparator());
 
         return sb.toString();
     }
 
-    public static class Builder {
+    public void assertIsSet() {
+        super.assertIsSet();
+
+        // This can be optional. FIXME: make optional depending on the configuration.
+        //assertHasText(DS_MERCHANT_MERCHANTURL);
+
+        assertHasText(DS_MERCHANT_URLOK);
+        assertHasText(DS_MERCHANT_URLKO);
+        assertHasText(DS_MERCHANT_NAME);
+        assertHasText(DS_CONSUMER_LANGUAGE);
+        assertHasText(DS_MERCHANT_PAYMETHODS);
+    }
+
+    public templates class Builder {
 
         private String merchantCode;
         private String terminal;
@@ -119,6 +138,8 @@ public final class OrderCES extends Order {
         private String urlNotification;
         private String productDescription;
         private String payMethods;
+        private String titular;
+        private String merchantName;
 
         public Builder(@NonNull EasyRedsysConfiguration easyRedsysConfiguration) {
             this.merchantCode = easyRedsysConfiguration.getMerchantCode();
@@ -126,68 +147,79 @@ public final class OrderCES extends Order {
         }
 
 
-        public Builder merchantCode(final String merchantCode) {
+        public Builder merchantCode(@NonNull String merchantCode) {
             this.merchantCode = merchantCode;
             return this;
         }
 
-        public Builder terminal(final String terminal) {
+        public Builder terminal(@NonNull String terminal) {
             this.terminal = terminal;
             return this;
         }
 
-        public Builder transactionType(final TransactionType transactionType) {
+        public Builder transactionType(@NonNull TransactionType transactionType) {
             this.transactionType = transactionType.getCode();
             return this;
         }
 
-        public Builder currency(final Currency currency) {
+        public Builder currency(@NonNull Currency currency) {
             this.currency = currency.getISOCodeNumeric();
             return this;
         }
 
-        public Builder consumerLanguage(final Language consumerLanguage) {
+        public Builder consumerLanguage(@NonNull Language consumerLanguage) {
             this.consumerLanguage = Integer.valueOf(consumerLanguage.getCode());
             return this;
         }
 
-        public Builder order(final String order) {
+        public Builder order(@NonNull String order) {
             this.order = order;
             return this;
         }
 
-        public Builder amount(final long amount) {
+        public Builder amount(@NonNull long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Builder urlOk(final String urlOk) {
+        public Builder urlOk(@NonNull String urlOk) {
             this.urlOk = urlOk;
             return this;
         }
 
-        public Builder urlKo(final String urlKo) {
+        public Builder urlKo(@NonNull String urlKo) {
             this.urlKo = urlKo;
             return this;
         }
 
-        public Builder urlNotification(final String urlNotification) {
+        public Builder urlNotification(@NonNull String urlNotification) {
             this.urlNotification = urlNotification;
             return this;
         }
 
-        public Builder productDescription(final String productDescription) {
+        public Builder productDescription(@NonNull String productDescription) {
             this.productDescription = productDescription;
             return this;
         }
 
-        public Builder payMethods(final PaymentMethod paymentMethods) {
+        public Builder payMethods(@NonNull PaymentMethod paymentMethods) {
             this.payMethods = paymentMethods.getCode();
+            return this;
+        }
+
+        public Builder titular(@NonNull String titular) {
+            this.titular = titular;
+            return this;
+        }
+
+        public Builder merchantName(@NonNull String merchantName) {
+            this.merchantName = merchantName;
             return this;
         }
 
         public OrderCES build() {
             OrderCES orderCES =  new OrderCES();
+
             orderCES.setDs_merchant_merchantcode(merchantCode);
             orderCES.setDs_merchant_terminal(terminal);
             orderCES.setDs_merchant_transactiontype(transactionType);
@@ -201,7 +233,10 @@ public final class OrderCES extends Order {
             orderCES.setDs_merchant_productdescription(productDescription);
             orderCES.setDs_merchant_paymethods(payMethods);
 
+            orderCES.setDs_merchant_merchantName(merchantName);
+            orderCES.setDs_merchant_titular(titular);
 
+            orderCES.assertIsSet();
 
             return orderCES;
         }

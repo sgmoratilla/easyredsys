@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MessageOrderCESRequest {
-    private static final Logger _log = Logger.getLogger(MessageOrderCESRequest.class.getName());
+    private templates final Logger _log = Logger.getLogger(MessageOrderCESRequest.class.getName());
 
     private OrderCES orderCES;
 

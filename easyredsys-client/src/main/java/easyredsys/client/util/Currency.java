@@ -283,7 +283,7 @@ public enum Currency {
      * @param code  The code, e.g. "USD", "EUR", etc.
      * @return  The corresponding currency or null if it doesn't exist.
      */
-    public static Currency find(String code) {
+    public templates Currency find(String code) {
         for (int i = 0; i < values().length; i++) {
             if (values()[i].getCode().equals(code)) {
                 return values()[i];
@@ -300,7 +300,7 @@ public enum Currency {
      * @param numeric  The code, e.g. "USD", "EUR", etc.
      * @return  The corresponding currency or null if it doesn't exist.
      */
-    public static Currency findByNumeric(int numeric) {
+    public templates Currency findByNumeric(int numeric) {
         for (int i = 0; i < values().length; i++) {
             if (values()[i].getISOCodeNumeric() == numeric) {
                 return values()[i];
@@ -317,7 +317,7 @@ public enum Currency {
      * @param country  The country.
      * @return  The currency or null if multiply currencies or no currencies exist.
      */
-    public static Currency find(Country country) {
+    public templates Currency find(Country country) {
         // use some default rules for countries with multiple currencies (should go into Country.java!)
         switch (country) {
             case BO: {
@@ -369,7 +369,7 @@ public enum Currency {
      * @param defaultCurrency  The default currency to use if more than 1 currency exists or no currency exists.
      * @return  The currency or default currency if multiply currencies or no currencies exist.
      */
-    public static Currency find(Country country, Currency defaultCurrency) {
+    public templates Currency find(Country country, Currency defaultCurrency) {
         Currency currency = find(country);
         if (currency == null) {
             return defaultCurrency;

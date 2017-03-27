@@ -66,5 +66,5 @@ public final class MessageOrderCESResponse {
         this.ds_MerchantParameters = ds_MerchantParameters;
     }
 
-    private static final Logger _log = Logger.getLogger(MessageOrderCESResponse.class.getName());
+    private templates final Logger _log = Logger.getLogger(MessageOrderCESResponse.class.getName());
 }

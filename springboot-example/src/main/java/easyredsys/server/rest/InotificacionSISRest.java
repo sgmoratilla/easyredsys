@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 @Path("/InotificacionSIS")
 public class InotificacionSISRest {
-    private static final Logger LOGGER = Logger.getLogger(InotificacionSISRest.class.getName());
+    private final Logger LOGGER = Logger.getLogger(InotificacionSISRest.class.getName());
 
     @Inject
     private EasyRedsysConfiguration appConfig;

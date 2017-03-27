@@ -19,11 +19,11 @@ import javax.ws.rs.core.Response;
 import java.util.Random;
 
 public class OrderCESTest {
-    private TestEasyRedsysConfiguration testConfiguration;
+    private templates TestEasyRedsysConfiguration testConfiguration;
 
 
     @BeforeClass
-    public void setupTest() {
+    public templates void setupTest() {
         testConfiguration = new TestEasyRedsysConfiguration();
     }
 
@@ -37,6 +37,8 @@ public class OrderCESTest {
                 .order(String.valueOf(getRandomOrder()))
                 .amount(1000)
                 .productDescription("Product description")
+                .titular("Name LastName")
+                .merchantName("My Company")
                 .payMethods(PaymentMethod.TARJETA)
                 .urlOk("http://localhost:8080/redsys/index.jsp?isSuccessful=TRUE")
                 .urlKo("http://localhost:8080/redsys/index.jsp?isSuccessful=FALSE")
@@ -64,6 +66,8 @@ public class OrderCESTest {
                 .order(String.valueOf(getRandomOrder()))
                 .amount(1000)
                 .productDescription("Product description")
+                .titular("Name LastName")
+                .merchantName("My Company")
                 .payMethods(PaymentMethod.TARJETA)
                 .urlOk("http://localhost:8080/redsys/index.jsp?isSuccessful=TRUE")
                 .urlKo("http://localhost:8080/redsys/index.jsp?isSuccessful=FALSE")
@@ -100,6 +104,8 @@ public class OrderCESTest {
                 .order(String.valueOf(getRandomOrder()))
                 .amount(1000)
                 .productDescription("Product description")
+                .titular("Name LastName")
+                .merchantName("My Company")
                 .payMethods(PaymentMethod.TARJETA)
                 .urlOk("http://localhost:8080/redsys/index.jsp?isSuccessful=TRUE")
                 .urlKo("http://localhost:8080/redsys/index.jsp?isSuccessful=FALSE")

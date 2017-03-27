@@ -1,4 +1,4 @@
-package easyredsys.client.client.util;
+package easyredsys.client.util;
 
 /*
  * Copyright (C) 2012 Neo Visionaries Inc.

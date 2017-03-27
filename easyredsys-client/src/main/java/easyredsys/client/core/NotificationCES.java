@@ -1,4 +1,4 @@
-package easyredsys.client.client.core;
+package easyredsys.client.core;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;

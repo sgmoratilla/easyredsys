@@ -1,4 +1,4 @@
-package easyredsys.client.client.util;
+package easyredsys.client.util;
 
 
 import java.util.HashMap;

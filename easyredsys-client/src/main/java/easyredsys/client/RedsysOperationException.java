@@ -1,11 +1,11 @@
-package easyredsys.client.client;
+package easyredsys.client;
 
 
-public class OperationException extends Exception {
+public class RedsysOperationException extends Exception {
     private String code;
     private String message;
 
-    public OperationException(String code, String message) {
+    public RedsysOperationException(String code, String message) {
         super(code);
 
         this.code = code;
@@ -31,7 +31,7 @@ public class OperationException extends Exception {
 
     @Override
     public String toString() {
-        return "OperationException{" +
+        return "RedsysOperationException{" +
                 "code='" + code + '\'' +
                 ", message='" + message + '\'' +
                 '}';

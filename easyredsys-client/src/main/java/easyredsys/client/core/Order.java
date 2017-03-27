@@ -1,5 +1,6 @@
-package easyredsys.client.client.core;
+package easyredsys.client.core;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import sis.redsys.api.ApiMacSha256;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -46,8 +47,8 @@ public abstract class Order {
         return apiMacSha256.getParameter("DS_MERCHANT_ORDER");
     }
 
-    public void setDs_merchant_order(String ds_merchant_order) {
-        apiMacSha256.setParameter("DS_MERCHANT_ORDER", String.valueOf(ds_merchant_order));
+    public void setDs_merchant_order(@NonNull String ds_merchant_order) {
+        apiMacSha256.setParameter("DS_MERCHANT_ORDER", ds_merchant_order);
     }
 
     @XmlElement(name = "DS_MERCHANT_MERCHANTCODE")
@@ -60,8 +61,8 @@ public abstract class Order {
         return -1;
     }
 
-    public void setDs_merchant_merchantcode(long ds_merchant_merchantcode) {
-        apiMacSha256.setParameter("DS_MERCHANT_MERCHANTCODE", String.valueOf(ds_merchant_merchantcode));
+    public void setDs_merchant_merchantcode(@NonNull String ds_merchant_merchantcode) {
+        apiMacSha256.setParameter("DS_MERCHANT_MERCHANTCODE", ds_merchant_merchantcode);
     }
 
     @XmlElement(name = "DS_MERCHANT_TERMINAL")
@@ -74,8 +75,8 @@ public abstract class Order {
         return 0;
     }
 
-    public void setDs_merchant_terminal(long ds_merchant_terminal) {
-        apiMacSha256.setParameter("DS_MERCHANT_TERMINAL", String.valueOf(ds_merchant_terminal));
+    public void setDs_merchant_terminal(@NonNull String ds_merchant_terminal) {
+        apiMacSha256.setParameter("DS_MERCHANT_TERMINAL", ds_merchant_terminal);
     }
 
     @XmlElement(name = "DS_MERCHANT_CURRENCY")
@@ -97,7 +98,7 @@ public abstract class Order {
         return apiMacSha256.getParameter("DS_MERCHANT_TRANSACTIONTYPE");
     }
 
-    public void setDs_merchant_transactiontype(String ds_merchant_transactiontype) {
+    public void setDs_merchant_transactiontype(@NonNull String ds_merchant_transactiontype) {
         apiMacSha256.setParameter("DS_MERCHANT_TRANSACTIONTYPE", ds_merchant_transactiontype);
     }
 
@@ -106,7 +107,7 @@ public abstract class Order {
         return apiMacSha256.getParameter("DS_MERCHANT_PRODUCTDESCRIPTION");
     }
 
-    public void setDs_merchant_productdescription(String ds_merchant_productdescription) {
+    public void setDs_merchant_productdescription(@NonNull String ds_merchant_productdescription) {
         apiMacSha256.setParameter("DS_MERCHANT_PRODUCTDESCRIPTION", ds_merchant_productdescription);
     }
 
@@ -115,7 +116,7 @@ public abstract class Order {
         return apiMacSha256.getParameter("DS_MERCHANT_TITULAR");
     }
 
-    public void setDs_merchant_titular(String ds_merchant_titular) {
+    public void setDs_merchant_titular(@NonNull String ds_merchant_titular) {
         apiMacSha256.setParameter("DS_MERCHANT_TITULAR", ds_merchant_titular);
     }
 
@@ -124,7 +125,7 @@ public abstract class Order {
         return apiMacSha256.getParameter("DS_MERCHANT_MERCHANTDATA");
     }
 
-    public void setDs_merchant_merchantdata(String ds_merchant_merchantdata) {
+    public void setDs_merchant_merchantdata(@NonNull String ds_merchant_merchantdata) {
         apiMacSha256.setParameter("DS_MERCHANT_MERCHANTDATA", ds_merchant_merchantdata);
     }
 

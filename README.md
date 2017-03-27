@@ -1,88 +1,46 @@
-# EASY REDSYS #
+# EASY REDSYS: CES + REST #
 
-Esta librería facilita la integración con la pasarela de pago Redsys para aplicaciones Java.
+This library is a simplified version of https://github.com/majulvez/easyredsys/ which only accepts CES requests
+and REST notifications.
 
-Permite realizar compras CES, compras No CES, autorizaciones devoluciones, pagos diferidos y pagos recurrentes
+Software Requirements:
+- Java 1.8
+- Gradle (to compile this library)
 
-##Requisitos##
 
-1. Java 1.8.x
-3. Git (opcional)
+Usage:
 
-## Instalación ##
+Add this library as dependency:
 
-En el submódulo "integration-example-war" hay un ejemplo de integración de esta librería.
-
-Puedes ver el ejemplo de integración funcionando en esta dirección: http://easyredsys.miguelangeljulvez.com
-
-###Integrar el jar en tu proyecto y modifica tu aplicación###
-
-Añade como dependencia maven lo siguiente
-
-```
 <dependency>
-  <group>com.miguelangeljulvez.easyredsys</group>
+  <group>easyredsys</group>
   <name>easyredsys-client</name>
   <version>1.0.0</version>
 </dependency>
-```
 
-A continuación, implementa la interfaz AppConfig en una clase llamada por ejemplo AppConfigImpl e introduce los datos de tu pasarela de pago. Por ejemplo:
+CES payments (users are redirected to the bank environment in a browser):
 
-```
-import com.miguelangeljulvez.easyredsys.client.AppConfig;
-
-public class AppConfigImpl implements AppConfig {
-
-    static String getMerchantCode() {
-        return "061978060";
-    }
-
-    static String getTerminal() {
-        return "001";
-    }
-
-    static String getSecretKey() {
-        return "23423524234"; //Si testMode está establecido a true, no se usa. Se usa la clave de pruebas por defecto.
-    }
-
-    static boolean isTestMode() {
-         return true; //Establécelo a false cuando quieras pasar a real
-    }
-
-    @Override
-    public void saveNotification(Notification notification) {
-        // Pon aquí lo que quieras hacer con la notificación recibida del banco. Ver apartado "Notificaciones" es este mismo fichero
-    }
-}
-```
-
-**OPCIÓN A - Compra mediante Comercio Electrónico Seguro (los datos de la tarjeta son solicitados por el banco)**
-
-1- Crea la orden de compra en tu aplicación
-
-El pedido puede crearse mediantes POJO
+1- Create your Order:
 
 ```
-OrderCES orderCES = new OrderCES.Builder(AppConfigImpl.class)
+EasyRedsysConfiguration config = new ...
+OrderCES orderCES = new OrderCES.Builder(config)
                         .transactionType(TransactionType.AUTORIZACION)
                         .currency(Currency.EUR)
                         .consumerLanguage(Language.SPANISH)
-                        .order("<Identificador único>")
-                        .amount(<Cantidad a cobrar>)
+                        .order("<Unique id of the transaction>")
+                        .amount(<The amount to charge in cents>)
                         .productDescription("Product description")
                         .paymentMethods(PaymentMethod.CARD)
-                        .urlOk(<La url al terminar el proceso del banco con éxito>)
-                        .urlKo(<La url al terminar el proceso del banco con fallo>)
-                        .urlNotification(<La url de tu servicio de recogida de notificaciones>)
+                        .urlOk(<The URL where the user is redirect when the payment is done>)
+                        .urlKo(<The URL where the user is redirect when the payment cannot be done>)
+                        .urlNotification(<Your URL to receive the notifications from Redsys>)
                         .build();
 
-MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest().Builder(AppConfigImpl.class)
-                                    .withOrder(orderCES)
-                                    .build();
+MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest(orderCES);
 ```
 
-2-Crear el formulario de envío para comunicarse con el banco
+2-Make a POST request to the Redsys URL. This is typically done with a web form:
 
 ```
 <form action="<%=messageOrderCESRequest.getRedsysUrl()%>" method="post">
@@ -93,44 +51,10 @@ MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest().Bui
 </form>
 ```
     
-3- Crea las páginas de urlOk y urlKo del banco
+3- You must implement the callback for the URL that you have set in .urlNotification()
 
-4- Indica qué hacer con las notificaciones del banco. Ver mas adelante el apartado 'Notificaciones'
 
-**OPCIÓN B - Compra mediante Comercio Electrónico No Seguro (los datos de la tarjeta son solicitados por tu aplicación)**
-
-1- Crea la orden de compra en tu aplicación
-```
-OrderNoCES orderNoCES = new OrderNoCES.Builder(AppConfigImpl.class)
-            .transactionType(TransactionType.AUTORIZACION)
-            .currency(Currency.EUR)
-            .order(<Identificador único>)
-            .amount(<Cantidad a cobrar>)
-            .cardNumber("4548812049400004")
-            .cvv2("123")
-            .expiryDate("2012")
-            .build();
-
-MessageOrderNoCESRequest messageOrderNoCESRequest = new MessageOrderNoCESRequest.Builder(AppConfigImpl.class)
-                .withOrder(orderNoCES)
-                .build();
-
-try {
-    MessageOrderNoCESResponse messageOrderNoCESResponse = EasyRedsysService.request(messageOrderNoCESRequest, AppConfigImpl.class);
-} catch (OperationException e) {
-    e.printStackTrace();
-}
-```
-
-2- Si no se produce ninguna excepción, la petición se ha realizado correctamente.
-
-Si se produjera alguna excepción, la descripción del error aparecerá en los logs. También se puede obtener el código de error desde la excepción:
-
-```
-    e.getCode();
-```
-
-## Notificaciones ##
+## Notification ##
 
 ```
 <dependency>

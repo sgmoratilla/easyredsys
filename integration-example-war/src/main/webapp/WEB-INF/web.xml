@@ -66,7 +66,7 @@
 
     <servlet>
         <servlet-name>wsServlet</servlet-name>
-        <servlet-class>com.miguelangeljulvez.easyredsys.server.ws.literal.InotificacionSISImpl</servlet-class>
+        <servlet-class>InotificacionSISImpl</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

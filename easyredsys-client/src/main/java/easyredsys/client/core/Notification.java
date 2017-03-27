@@ -1,8 +1,8 @@
-package easyredsys.client.client.core;
+package easyredsys.client.core;
 
 
-import easyredsys.client.client.util.Country;
-import easyredsys.client.client.util.Currency;
+import easyredsys.client.util.Country;
+import easyredsys.client.util.Currency;
 import org.json.JSONException;
 import sis.redsys.api.ApiMacSha256;
 

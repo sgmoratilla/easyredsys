@@ -1,11 +1,12 @@
-package easyredsys.client.client.core;
+package easyredsys.client.core;
 
 
-import easyredsys.client.client.AppConfig;
-import easyredsys.client.client.util.Currency;
-import easyredsys.client.client.util.Language;
-import easyredsys.client.client.util.PaymentMethod;
-import easyredsys.client.client.util.TransactionType;
+import easyredsys.client.EasyRedsysConfiguration;
+import easyredsys.client.util.Currency;
+import easyredsys.client.util.Language;
+import easyredsys.client.util.PaymentMethod;
+import easyredsys.client.util.TransactionType;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -106,8 +107,8 @@ public final class OrderCES extends Order {
 
     public static class Builder {
 
-        private long merchantCode;
-        private long terminal;
+        private String merchantCode;
+        private String terminal;
         private String transactionType;
         private long currency;
         private int consumerLanguage;
@@ -119,34 +120,19 @@ public final class OrderCES extends Order {
         private String productDescription;
         private String payMethods;
 
-        public Builder() {}
-
-        public Builder(Class<? extends AppConfig> userActionClass) {
-            try {
-                Method getMerchantCode = userActionClass.getDeclaredMethod("getMerchantCode");
-                getMerchantCode.setAccessible(true);
-                Method getTerminal = userActionClass.getDeclaredMethod("getTerminal");
-                getTerminal.setAccessible(true);
-
-                this.merchantCode = Long.valueOf((String) getMerchantCode.invoke(null));
-                this.terminal = Long.valueOf((String) getTerminal.invoke(null));
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+        public Builder(@NonNull EasyRedsysConfiguration easyRedsysConfiguration) {
+            this.merchantCode = easyRedsysConfiguration.getMerchantCode();
+            this.terminal = easyRedsysConfiguration.getTerminal();
         }
 
 
         public Builder merchantCode(final String merchantCode) {
-            this.merchantCode = Long.valueOf(merchantCode);
+            this.merchantCode = merchantCode;
             return this;
         }
 
         public Builder terminal(final String terminal) {
-            this.terminal = Long.valueOf(terminal);
+            this.terminal = terminal;
             return this;
         }
 
@@ -215,7 +201,7 @@ public final class OrderCES extends Order {
             orderCES.setDs_merchant_productdescription(productDescription);
             orderCES.setDs_merchant_paymethods(payMethods);
 
-            //TODO - Lanzar error de validación
+
 
             return orderCES;
         }

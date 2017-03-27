@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ page import="com.miguelangeljulvez.easyredsys.client.core.MessageOrderCESRequest" %>
-<%@ page import="com.miguelangeljulvez.easyredsys.client.core.OrderCES" %>
-<%@ page import="com.miguelangeljulvez.easyredsys.client.util.Currency" %>
-<%@ page import="com.miguelangeljulvez.easyredsys.client.util.Language" %>
-<%@ page import="com.miguelangeljulvez.easyredsys.client.util.PaymentMethod" %>
-<%@ page import="com.miguelangeljulvez.easyredsys.client.util.TransactionType" %>
-<%@ page import="com.miguelangeljulvez.easyredsys.example.AppConfigImpl" %>
+<%@ page import="easyredsys.client.core.MessageOrderCESRequest" %>
+<%@ page import="easyredsys.client.core.OrderCES" %>
+<%@ page import="easyredsys.client.util.Currency" %>
+<%@ page import="easyredsys.client.util.Language" %>
+<%@ page import="easyredsys.client.util.PaymentMethod" %>
+<%@ page import="easyredsys.client.util.TransactionType" %>
+<%@ page import="easyredsys.example.AppConfigImpl" %>
 <%@ page import="java.util.Random" %>
 
 <%
@@ -26,7 +26,6 @@
     MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest.Builder(AppConfigImpl.class)
             .withOrder(orderCES)
             .build();
-%>
 
 <!DOCTYPE html>
 <html>
@@ -53,19 +52,6 @@
         <input name="Ds_Signature" value="<%=messageOrderCESRequest.getDs_Signature()%>" type="hidden"/>
         <input type="submit" value="Comprar"/>
     </form>
-    </fieldset>
-    <p>&nbsp;</p>
-    <fieldset>
-        <legend>Compra no CES<br />Los datos bancarios los pide tu aplicación</legend>
-
-        <form action="/easyredsys/response-noces.jsp" method="post">
-            <label for="card">Tarjeta: </label> <input type="text" name="card" id="card" value="4548812049400004" /><br />
-            <label for="expiration-month">Mes caducidad: </label> <input type="text" name="expiration-month" id="expiration-month" value="12" /><br />
-            <label for="expiration-year">Año caducidad: </label> <input type="text" name="expiration-year" id="expiration-year" value="20" /><br />
-            <label for="cvv">CVV: </label> <input type="text" name="cvv" id="cvv" value="123" /><br />
-            <input type="submit" value="Comprar"/>
-        </form>
-        <p>(Código esperado de error SIS0252)</p>
     </fieldset>
 </body>
 

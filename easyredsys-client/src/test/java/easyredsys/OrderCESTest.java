@@ -1,16 +1,15 @@
-package com.miguelangeljulvez.easyredsys;
+package easyredsys;
 
-import com.miguelangeljulvez.easyredsys.client.core.MessageOrderCESRequest;
-import com.miguelangeljulvez.easyredsys.client.core.MessageOrderCESResponse;
-import com.miguelangeljulvez.easyredsys.client.core.OrderCES;
-import com.miguelangeljulvez.easyredsys.client.util.Currency;
-import com.miguelangeljulvez.easyredsys.client.util.Language;
-import com.miguelangeljulvez.easyredsys.client.util.PaymentMethod;
-import com.miguelangeljulvez.easyredsys.client.util.TransactionType;
+import easyredsys.client.core.MessageOrderCESRequest;
+import easyredsys.client.core.MessageOrderCESResponse;
+import easyredsys.client.core.OrderCES;
+import easyredsys.client.util.Currency;
+import easyredsys.client.util.Language;
+import easyredsys.client.util.PaymentMethod;
+import easyredsys.client.util.TransactionType;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.ws.rs.client.*;
@@ -20,11 +19,18 @@ import javax.ws.rs.core.Response;
 import java.util.Random;
 
 public class OrderCESTest {
+    private TestEasyRedsysConfiguration testConfiguration;
+
+
+    @BeforeClass
+    public void setupTest() {
+        testConfiguration = new TestEasyRedsysConfiguration();
+    }
 
     @Test
     public void validLocalOrderCES() {
 
-        OrderCES orderCES = new OrderCES.Builder(AppConfigImpl.class)
+        OrderCES orderCES = new OrderCES.Builder(testConfiguration)
                 .transactionType(TransactionType.AUTORIZACION)
                 .currency(Currency.EUR)
                 .consumerLanguage(Language.SPANISH)
@@ -37,23 +43,21 @@ public class OrderCESTest {
                 .urlNotification("http://localhost:8080/redsys")
                 .build();
 
-        MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest.Builder(AppConfigImpl.class)
-                .withOrder(orderCES)
-                .build();
+        MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest(orderCES);
 
         String signatureVersion = "HMAC_SHA256_V1";
         String merchantParameter = "eyJEc19EYXRlIjoiMTYlMkYwNSUyRjIwMTYiLCJEc19Ib3VyIjoiMTElM0E0NSIsIkRzX1NlY3VyZVBheW1lbnQiOiIxIiwiRHNfQ2FyZF9Db3VudHJ5IjoiNzI0IiwiRHNfQW1vdW50IjoiMTAwMCIsIkRzX0N1cnJlbmN5IjoiOTc4IiwiRHNfT3JkZXIiOiJrbG9rbnp4bXpidnUiLCJEc19NZXJjaGFudENvZGUiOiI2MTk3ODA2MCIsIkRzX1Rlcm1pbmFsIjoiMDAxIiwiRHNfUmVzcG9uc2UiOiIwMDAwIiwiRHNfTWVyY2hhbnREYXRhIjoiIiwiRHNfVHJhbnNhY3Rpb25UeXBlIjoiMCIsIkRzX0NvbnN1bWVyTGFuZ3VhZ2UiOiIxIiwiRHNfQXV0aG9yaXNhdGlvbkNvZGUiOiIzNTcwMTQifQ==";
         String signature = "CfRWIlpdnuAYkWEaxk8OmUw3_8g0GUxFg-LpX2Zs57g=";
 
-        MessageOrderCESResponse messageOrderCESResponse = new MessageOrderCESResponse(signatureVersion, signature, merchantParameter, AppConfigImpl.getSecretKey());
+        MessageOrderCESResponse messageOrderCESResponse = new MessageOrderCESResponse(signatureVersion, signature, merchantParameter);
 
-        Assert.assertTrue(messageOrderCESResponse.isValid());
+        Assert.assertTrue(messageOrderCESResponse.isValid(testConfiguration.getSecretKey()));
     }
 
     @Test
     public void validOrderCES() {
 
-        OrderCES orderCES = new OrderCES.Builder(AppConfigImpl.class)
+        OrderCES orderCES = new OrderCES.Builder(testConfiguration)
                 .transactionType(TransactionType.AUTORIZACION)
                 .currency(Currency.EUR)
                 .consumerLanguage(Language.SPANISH)
@@ -66,18 +70,16 @@ public class OrderCESTest {
                 .urlNotification("http://localhost:8080/redsys")
                 .build();
 
-        MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest.Builder(AppConfigImpl.class)
-                .withOrder(orderCES)
-                .build();
+        MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest(orderCES);
 
         Client client = ClientBuilder.newClient();
 
-        WebTarget target = client.target(messageOrderCESRequest.getRedsysUrl());
+        WebTarget target = client.target(testConfiguration.getRedsysUrl());
 
         Form form = new Form();
         form.param("Ds_SignatureVersion", messageOrderCESRequest.getDs_SignatureVersion());
         form.param("Ds_MerchantParameters", messageOrderCESRequest.getDs_MerchantParameters());
-        form.param("Ds_Signature", messageOrderCESRequest.getDs_Signature());
+        form.param("Ds_Signature", messageOrderCESRequest.getDs_Signature(testConfiguration.getSecretKey()));
 
         Invocation.Builder request = target.request();
 
@@ -91,7 +93,7 @@ public class OrderCESTest {
     @Test
     public void notValidOrderCES() {
 
-        OrderCES orderCES = new OrderCES.Builder(AppConfigImpl.class)
+        OrderCES orderCES = new OrderCES.Builder(testConfiguration)
                 .transactionType(TransactionType.AUTORIZACION)
                 .currency(Currency.EUR)
                 .consumerLanguage(Language.SPANISH)
@@ -104,13 +106,11 @@ public class OrderCESTest {
                 .urlNotification("http://localhost:8080/redsys")
                 .build();
 
-        MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest.Builder(AppConfigImpl.class)
-                .withOrder(orderCES)
-                .build();
+        MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest(orderCES);
 
         Client client = ClientBuilder.newClient();
 
-        WebTarget target = client.target(messageOrderCESRequest.getRedsysUrl());
+        WebTarget target = client.target(testConfiguration.getRedsysUrl());
 
         Form form = new Form();
         form.param("Ds_SignatureVersion", messageOrderCESRequest.getDs_SignatureVersion());

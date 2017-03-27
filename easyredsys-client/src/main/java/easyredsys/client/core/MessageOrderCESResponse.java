@@ -1,4 +1,4 @@
-package easyredsys.client.client.core;
+package easyredsys.client.core;
 
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
@@ -6,20 +6,17 @@ import java.util.logging.Logger;
 
 public final class MessageOrderCESResponse {
 
-    private volatile String claveSecreta;
-
     private String ds_SignatureVersion;
     private String ds_Signature;
     private String ds_MerchantParameters;
 
     private NotificationCES operationCES;
 
-    public MessageOrderCESResponse(String ds_SignatureVersion, String ds_Signature, String ds_MerchantParameters, String claveSecreta) {
+    public MessageOrderCESResponse(String ds_SignatureVersion, String ds_Signature, String ds_MerchantParameters) {
 
         this.ds_SignatureVersion = ds_SignatureVersion;
         this.ds_Signature = ds_Signature;
         this.ds_MerchantParameters = ds_MerchantParameters;
-        this.claveSecreta = claveSecreta;
 
         operationCES = new NotificationCES();
 
@@ -41,8 +38,8 @@ public final class MessageOrderCESResponse {
         this.operationCES = operationCES;
     }
 
-    public boolean isValid() {
-        return operationCES.isValid(claveSecreta, ds_Signature);
+    public boolean isValid(String secretKey) {
+        return operationCES.isValid(secretKey, ds_Signature);
     }
 
     public String getDs_SignatureVersion() {
@@ -68,15 +65,6 @@ public final class MessageOrderCESResponse {
     public void setDs_MerchantParameters(String ds_MerchantParameters) {
         this.ds_MerchantParameters = ds_MerchantParameters;
     }
-
-    public String getClaveSecreta() {
-        return claveSecreta;
-    }
-
-    public void setClaveSecreta(String claveSecreta) {
-        this.claveSecreta = claveSecreta;
-    }
-
 
     private static final Logger _log = Logger.getLogger(MessageOrderCESResponse.class.getName());
 }

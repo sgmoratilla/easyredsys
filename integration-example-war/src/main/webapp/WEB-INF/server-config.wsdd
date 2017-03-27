@@ -42,7 +42,7 @@
         <parameter name="allowedMethods" value="procesaNotificacionSIS"/>
         <parameter name="typeMappingVersion" value="1.1"/>
         <parameter name="wsdlPortType" value="InotificacionSISPortType"/>
-        <parameter name="className" value="com.miguelangeljulvez.easyredsys.server.ws.axis.InotificacionSISBindingImpl"/>
+        <parameter name="className" value="InotificacionSISBindingImpl"/>
         <parameter name="wsdlServicePort" value="InotificacionSIS"/>
         <parameter name="wsdlTargetNamespace" value="https://sis.SERMEPA.es/sis/InotificacionSIS.wsdl"/>
         <parameter name="wsdlServiceElement" value="InotificacionSISService"/>

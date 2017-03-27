@@ -12,6 +12,7 @@ dependencies {
     compile 'commons-codec:commons-codec:1.10'
     compile 'org.json:json:20160212'
     compile 'org.bouncycastle:bcprov-jdk15on:1.54'
+    compile 'org.checkerframework:checker:2.1.9'
 
     // Junit
     testCompile 'junit:junit:4.12'
@@ -45,9 +46,9 @@ artifacts {
     archives sourcesJar
 }
 
-signing {
-    sign configurations.archives
-}
+//signing {
+//    sign configurations.archives
+//}
 
 uploadArchives {
     repositories {
@@ -62,12 +63,12 @@ uploadArchives {
                 name 'easyredsys-client'
                 packaging 'jar'
                 description "Librería que facilita la integración con la pasarela de pago Redsys para aplicaciones Java"
-                url "https://www.miguelangeljulvez.com/easyredsys"
+                url "https://github.com/sgmoratilla/easyredsys"
 
                 scm {
-                    url "https://github.com/majulvez/easyredsys"
-                    connection "scm:git@github.com:majulvez/easyredsys.git"
-                    developerConnection "scm:git@github.com:majulvez/easyredsys.git"
+                    url "https://github.com/sgmoratilla/easyredsys"
+                    connection "git@github.com:sgmoratilla/easyredsys.git"
+                    developerConnection "git@github.com:sgmoratilla/easyredsys.git"
                 }
 
                 licenses {
@@ -82,6 +83,10 @@ uploadArchives {
                     developer {
                         id "majulvez"
                         name "Miguel Ángel Júlvez"
+                    }
+                    developer {
+                        id "sgmoratilla"
+                        name "Sergio Garcia Moratilla"
                     }
                 }
             }

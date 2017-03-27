@@ -24,13 +24,12 @@ public class ArquillianTest {
     URL deploymentUrl;
 
     @Deployment
-    public templates WebArchive createDeployment() {
+    public static WebArchive createDeployment() {
         return ShrinkWrap.create(EmbeddedGradleImporter.class)
                 .forThisProjectDirectory()
                 .importBuildOutput()
                 .as(WebArchive.class)
-                .addPackage("easyredsys")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addPackage("easyredsys");
     }
 
     @Test

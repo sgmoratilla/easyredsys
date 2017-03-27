@@ -8,9 +8,9 @@ import java.util.List;
  *
  */
 public class SecurityPolicy {
-    private templates List<String> ips = new ArrayList<>();
+    private static List<String> ips = new ArrayList<>();
 
-    templates {
+    static {
         String[] ipsStr = new String[3];
         ipsStr[0] = "127.0.0.1";
         ipsStr[1] = "195.76.9.187";

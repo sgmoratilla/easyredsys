@@ -8,18 +8,18 @@ import sis.redsys.api.ApiMacSha256;
 import javax.xml.bind.annotation.XmlElement;
 
 public abstract class Order {
-    public final templates String DS_MERCHANT_AMOUNT = "DS_MERCHANT_AMOUNT";
-    public final templates String DS_MERCHANT_ORDER = "DS_MERCHANT_ORDER";
-    public final templates String DS_MERCHANT_MERCHANTCODE = "DS_MERCHANT_MERCHANTCODE";
-    public final templates String DS_MERCHANT_TERMINAL = "DS_MERCHANT_TERMINAL";
-    public final templates String DS_MERCHANT_CURRENCY = "DS_MERCHANT_CURRENCY";
-    public final templates String DS_MERCHANT_TRANSACTIONTYPE = "DS_MERCHANT_TRANSACTIONTYPE";
-    public final templates String DS_MERCHANT_PRODUCTDESCRIPTION = "DS_MERCHANT_PRODUCTDESCRIPTION";
-    public final templates String DS_MERCHANT_TITULAR = "DS_MERCHANT_TITULAR";
-    public final templates String DS_MERCHANT_MERCHANTDATA = "DS_MERCHANT_MERCHANTDATA";
+    public final static String DS_MERCHANT_AMOUNT = "DS_MERCHANT_AMOUNT";
+    public final static String DS_MERCHANT_ORDER = "DS_MERCHANT_ORDER";
+    public final static String DS_MERCHANT_MERCHANTCODE = "DS_MERCHANT_MERCHANTCODE";
+    public final static String DS_MERCHANT_TERMINAL = "DS_MERCHANT_TERMINAL";
+    public final static String DS_MERCHANT_CURRENCY = "DS_MERCHANT_CURRENCY";
+    public final static String DS_MERCHANT_TRANSACTIONTYPE = "DS_MERCHANT_TRANSACTIONTYPE";
+    public final static String DS_MERCHANT_PRODUCTDESCRIPTION = "DS_MERCHANT_PRODUCTDESCRIPTION";
+    public final static String DS_MERCHANT_TITULAR = "DS_MERCHANT_TITULAR";
+    public final static String DS_MERCHANT_MERCHANTDATA = "DS_MERCHANT_MERCHANTDATA";
 
 
-    protected final templates String ds_SignatureVersion = "HMAC_SHA256_V1";
+    protected final static String ds_SignatureVersion = "HMAC_SHA256_V1";
 
     protected final ApiMacSha256 apiMacSha256 = new ApiMacSha256();
 

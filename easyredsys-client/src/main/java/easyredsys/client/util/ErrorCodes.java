@@ -6,9 +6,9 @@ import java.util.ResourceBundle;
 
 public class ErrorCodes  {
 
-    private templates final HashMap<String, String> errorCodes = new HashMap<>();
+    private static final HashMap<String, String> errorCodes = new HashMap<>();
 
-    templates {
+    static {
         errorCodes.put("SIS0007", "SIS0007");
         errorCodes.put("SIS0008", "SIS0008");
         errorCodes.put("SIS0009", "SIS0009");
@@ -134,11 +134,11 @@ public class ErrorCodes  {
 
     private ErrorCodes() {}
 
-    public templates String getErrorMessage(String errorCode) {
+    public static String getErrorMessage(String errorCode) {
         return getErrorMessage(errorCode, Locale.getDefault());
     }
 
-    public templates String getErrorMessage(String errorCode, Locale locale) {
+    public static String getErrorMessage(String errorCode, Locale locale) {
 
         String message = errorCodes.get(errorCode);
 

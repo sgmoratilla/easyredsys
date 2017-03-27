@@ -35,6 +35,6 @@ public final class NotificationCES extends Notification {
         this.ds_MerchantParameters = ds_MerchantParameters;
     }
 
-    private templates final Logger _log = Logger.getLogger(NotificationCES.class.getName());
+    private static final Logger _log = Logger.getLogger(NotificationCES.class.getName());
 
 }

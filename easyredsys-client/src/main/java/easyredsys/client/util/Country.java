@@ -1275,11 +1275,11 @@ public enum Country {
     // @formatter:on
 
 
-    private templates final Map<String, Country> alpha3Map = new HashMap<>();
-    private templates final Map<Integer, Country> numericMap = new HashMap<>();
+    private static final Map<String, Country> alpha3Map = new HashMap<>();
+    private static final Map<Integer, Country> numericMap = new HashMap<>();
 
 
-    templates {
+    static {
         for (Country cc : values()) {
             alpha3Map.put(cc.getAlpha3(), cc);
             numericMap.put(cc.getNumeric(), cc);
@@ -1355,7 +1355,7 @@ public enum Country {
      *             >alpha-3</a> code.
      * @return A CountryCode instance, or null if not found.
      */
-    public templates Country getByCode(String code) {
+    public static Country getByCode(String code) {
         if (code == null) {
             return null;
         }
@@ -1373,7 +1373,7 @@ public enum Country {
     }
 
 
-    private templates Country getByAlpha2Code(String code) {
+    private static Country getByAlpha2Code(String code) {
         try {
             return Enum.valueOf(Country.class, code);
         } catch (IllegalArgumentException e) {
@@ -1382,7 +1382,7 @@ public enum Country {
     }
 
 
-    private templates Country getByAlpha3Code(String code) {
+    private static Country getByAlpha3Code(String code) {
         return alpha3Map.get(code);
     }
 
@@ -1396,7 +1396,7 @@ public enum Country {
      *             >ISO 3166-1 numeric</a> code.
      * @return A CountryCode instance, or null if not found.
      */
-    public templates Country getByCode(int code) {
+    public static Country getByCode(int code) {
         return numericMap.get(code);
     }
 }

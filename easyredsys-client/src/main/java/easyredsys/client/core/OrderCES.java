@@ -15,12 +15,12 @@ import java.lang.reflect.Method;
 ** Orden de compra usando compra CES sin usar servicios web
  */
 public final class OrderCES extends Order {
-    public final templates String DS_MERCHANT_MERCHANTURL = "DS_MERCHANT_MERCHANTURL";
-    public final templates String DS_MERCHANT_URLOK = "DS_MERCHANT_URLOK";
-    public final templates String DS_MERCHANT_URLKO = "DS_MERCHANT_URLKO";
-    public final templates String DS_MERCHANT_NAME = "DS_MERCHANT_NAME";
-    public final templates String DS_CONSUMER_LANGUAGE = "DS_CONSUMER_LANGUAGE";
-    public final templates String DS_MERCHANT_PAYMETHODS = "DS_MERCHANT_PAYMETHODS";
+    public final static String DS_MERCHANT_MERCHANTURL = "DS_MERCHANT_MERCHANTURL";
+    public final static String DS_MERCHANT_URLOK = "DS_MERCHANT_URLOK";
+    public final static String DS_MERCHANT_URLKO = "DS_MERCHANT_URLKO";
+    public final static String DS_MERCHANT_NAME = "DS_MERCHANT_NAME";
+    public final static String DS_CONSUMER_LANGUAGE = "DS_CONSUMER_LANGUAGE";
+    public final static String DS_MERCHANT_PAYMETHODS = "DS_MERCHANT_PAYMETHODS";
 
 
 
@@ -124,7 +124,7 @@ public final class OrderCES extends Order {
         assertHasText(DS_MERCHANT_PAYMETHODS);
     }
 
-    public templates class Builder {
+    public static class Builder {
 
         private String merchantCode;
         private String terminal;

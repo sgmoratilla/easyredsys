@@ -19,11 +19,11 @@ import javax.ws.rs.core.Response;
 import java.util.Random;
 
 public class OrderCESTest {
-    private templates TestEasyRedsysConfiguration testConfiguration;
+    private static TestEasyRedsysConfiguration testConfiguration;
 
 
     @BeforeClass
-    public templates void setupTest() {
+    public static void setupTest() {
         testConfiguration = new TestEasyRedsysConfiguration();
     }
 

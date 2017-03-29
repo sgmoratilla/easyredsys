@@ -5,7 +5,7 @@ import easyredsys.client.core.MessageOrderCESResponse;
 import easyredsys.client.core.OrderCES;
 import easyredsys.client.util.Currency;
 import easyredsys.client.util.Language;
-import easyredsys.client.util.PaymentMethod;
+import easyredsys.client.util.RedsysPaymentMethod;
 import easyredsys.client.util.TransactionType;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -39,7 +39,7 @@ public class OrderCESTest {
                 .productDescription("Product description")
                 .titular("Name LastName")
                 .merchantName("My Company")
-                .payMethods(PaymentMethod.TARJETA)
+                .payMethods(RedsysPaymentMethod.TARJETA)
                 .urlOk("http://localhost:8080/redsys/index.jsp?isSuccessful=TRUE")
                 .urlKo("http://localhost:8080/redsys/index.jsp?isSuccessful=FALSE")
                 .urlNotification("http://localhost:8080/redsys")
@@ -68,7 +68,7 @@ public class OrderCESTest {
                 .productDescription("Product description")
                 .titular("Name LastName")
                 .merchantName("My Company")
-                .payMethods(PaymentMethod.TARJETA)
+                .payMethods(RedsysPaymentMethod.TARJETA)
                 .urlOk("http://localhost:8080/redsys/index.jsp?isSuccessful=TRUE")
                 .urlKo("http://localhost:8080/redsys/index.jsp?isSuccessful=FALSE")
                 .urlNotification("http://localhost:8080/redsys")
@@ -106,7 +106,7 @@ public class OrderCESTest {
                 .productDescription("Product description")
                 .titular("Name LastName")
                 .merchantName("My Company")
-                .payMethods(PaymentMethod.TARJETA)
+                .payMethods(RedsysPaymentMethod.TARJETA)
                 .urlOk("http://localhost:8080/redsys/index.jsp?isSuccessful=TRUE")
                 .urlKo("http://localhost:8080/redsys/index.jsp?isSuccessful=FALSE")
                 .urlNotification("http://localhost:8080/redsys")

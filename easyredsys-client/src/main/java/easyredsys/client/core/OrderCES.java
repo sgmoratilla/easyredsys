@@ -4,12 +4,9 @@ package easyredsys.client.core;
 import easyredsys.client.EasyRedsysConfiguration;
 import easyredsys.client.util.Currency;
 import easyredsys.client.util.Language;
-import easyredsys.client.util.PaymentMethod;
+import easyredsys.client.util.RedsysPaymentMethod;
 import easyredsys.client.util.TransactionType;
 import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /*
 ** Orden de compra usando compra CES sin usar servicios web
@@ -202,7 +199,7 @@ public final class OrderCES extends Order {
             return this;
         }
 
-        public Builder payMethods(@NonNull PaymentMethod paymentMethods) {
+        public Builder payMethods(@NonNull RedsysPaymentMethod paymentMethods) {
             this.payMethods = paymentMethods.getCode();
             return this;
         }

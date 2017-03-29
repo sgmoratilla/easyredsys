@@ -1,5 +1,10 @@
 package easyredsys.client.util;
 
+/**
+ * Possible types of transaction for Redirect Payments.
+ * As described in:
+ * https://canales.redsys.es/canales/ayuda/documentacion/Manual%20integracion%20para%20conexion%20por%20Redireccion.pdf
+ */
 public enum TransactionType {
     AUTORIZACION("0"),
     PRE_AUTORIZACION("1"),

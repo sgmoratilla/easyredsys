@@ -40,15 +40,15 @@ OrderCES orderCES = new OrderCES.Builder(config)
 MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest(orderCES);
 ```
 
-2-Make a POST request to the Redsys URL. This is typically done with a web form:
+2-Make a POST request to the Redsys URL. This is typically done with a web form (using Thymeleaf in this example):
 
 ```
-<form action="<%=messageOrderCESRequest.getRedsysUrl()%>" method="post">
-    <input name="Ds_SignatureVersion" value="<%=messageOrderCESRequest.getDs_SignatureVersion()%>" type="hidden"/>
-    <input name="Ds_MerchantParameters" value="<%=messageOrderCESRequest.getDs_MerchantParameters()%>" type="hidden"/>
-    <input name="Ds_Signature" value="<%=messageOrderCESRequest.getDs_Signature()%>" type="hidden"/>
-    <input type="submit" value="Submit"/>
-</form>
+    <form th:action="${configuration.redsysUrl}" method="post">
+        <input name="Ds_SignatureVersion" th:value="${messageOrderCESRequest.ds_SignatureVersion}" type="hidden"/>
+        <input name="Ds_MerchantParameters" th:value="${messageOrderCESRequest.ds_MerchantParameters}" type="hidden"/>
+        <input name="Ds_Signature" th:value="${messageOrderCESRequest.getDs_Signature(configuration.secretKey)}" type="hidden"/>
+        <input type="submit" value="Comprar"/>
+    </form>
 ```
     
 3- You must implement the callback for the URL that you have set in .urlNotification()
@@ -56,50 +56,4 @@ MessageOrderCESRequest messageOrderCESRequest = new MessageOrderCESRequest(order
 
 ## Notification ##
 
-```
-<dependency>
-  <group>com.miguelangeljulvez.easyredsys</group>
-  <name>easyredsys-server</name>
-  <version>1.0.0</version>
-</dependency>
-```
-
-Las notificaciones se reciben en el método saveNotificacion() de la interfaz AppConfig que has implementado previamente.
-
-Las notificaciones que llegan a ese método han pasado todas las verificaciones y controles de seguridad.
-
-Para publicar los diferentes servicios, deberás copiar el contenido de los ficheros web.xml, beans.xml y server-config.wsdd del submódulo "integration-example-war" al directorio WEB-INF de tu aplicación.
-
-### Notificación ON-LINE: síncrona y asíncrona ###
-```
-orderCES.setDs_merchant_merchantURL("https://<servidor>/<context>/rest/InotificacionSIS");
-
-o desde el builder del constructor
-
-new OrderCES.Builder()
-   ...
-   .urlNotificacion("https://<servidor>/<context>/rest/InotificacionSIS")
-   .build()
-```
-### Notificación ON-LINE: SOAP sin wsdl y con wsdl ###
-```
-orderCES.setDs_merchant_merchantURL("https://<servidor>/<context>/axis/InotificacionSIS");
-
-o desde el builder del constructor
-
-new OrderCES.Builder()
-   ...
-   .urlNotificacion("https://<servidor>/<context>/axis/InotificacionSIS")
-   .build()
-```
-### Notificación ON-LINE; SOAP literal (recomendada) ###
-```
-orderCES.setDs_merchant_merchantURL("https://<servidor>/<context>/literal/InotificacionSIS");
-
-o desde el builder del constructor
-
-new OrderCES.Builder()
-   ...
-   .urlNotificacion("https://<servidor>/<context>/literal/InotificacionSIS")
-   .build()
-```
+Notifications are received as a POST form in the URL specified under .urlNotification().

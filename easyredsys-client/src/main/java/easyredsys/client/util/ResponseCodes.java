@@ -75,10 +75,6 @@ public class ResponseCodes {
         return ResourceBundle.getBundle("Language", locale).getString(message);
     }
 
-    public static String getSuccessResponseMessage(String responseCode) {
-        return getSuccessResponseMessage(responseCode, Locale.getDefault());
-    }
-
     public static String getSuccessResponseMessage(String responseCode, Locale locale) {
 
         String message = successResponseCodes.get(responseCode);

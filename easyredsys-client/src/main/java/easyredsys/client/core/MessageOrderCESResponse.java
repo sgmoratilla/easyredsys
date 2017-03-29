@@ -21,8 +21,8 @@ public final class MessageOrderCESResponse {
         operationCES = new NotificationCES();
 
         try {
-            operationCES.getApiMacSha256().decodeMerchantParameters(ds_MerchantParameters);
-            operationCES.setDs_MerchantParameters(ds_MerchantParameters);
+            String decodedDs_MerchantParameters = operationCES.getApiMacSha256().decodeMerchantParameters(ds_MerchantParameters);
+            operationCES.setDs_MerchantParameters(decodedDs_MerchantParameters);
         } catch (UnsupportedEncodingException e) {
             _log.log(Level.WARNING, e.getMessage(), e);
         }

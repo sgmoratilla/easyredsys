@@ -11,17 +11,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class NotificationCES extends Notification {
+    private static final Logger LOGGER = Logger.getLogger(NotificationCES.class.getName());
+
 
     private String ds_MerchantParameters;
 
     @Override
-    public boolean isValid(String claveSecreta, String expectedSignature) {
+    public boolean isValid(String secretKey, String expectedSignature) {
         try {
-            String signature = getApiMacSha256().createMerchantSignatureNotif(claveSecreta, ds_MerchantParameters);
+            String signature = getApiMacSha256().createMerchantSignatureNotif(secretKey, ds_MerchantParameters);
 
             return !signature.isEmpty() && signature.equals(expectedSignature);
         } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidAlgorithmParameterException | BadPaddingException e) {
-            _log.log(Level.WARNING, e.getMessage(), e);
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
         }
 
         return false;
@@ -35,6 +37,5 @@ public final class NotificationCES extends Notification {
         this.ds_MerchantParameters = ds_MerchantParameters;
     }
 
-    private static final Logger _log = Logger.getLogger(NotificationCES.class.getName());
 
 }

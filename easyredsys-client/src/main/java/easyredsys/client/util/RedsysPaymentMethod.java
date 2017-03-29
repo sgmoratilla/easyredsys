@@ -3,7 +3,12 @@ package easyredsys.client.util;
 
 import java.util.HashMap;
 
-public enum PaymentMethod {
+/**
+ * Possible payment methods in Redsys.
+ * In Spanish because the official documentation
+ * describes them in Spanish.
+ */
+public enum RedsysPaymentMethod {
     TARJETA("C"),
     TRANSFERENCIA("R"),
     DOMICILIACION("D"),
@@ -11,15 +16,15 @@ public enum PaymentMethod {
     IUPAY("O");
 
     private String code;
-    private static HashMap<String, PaymentMethod> codes = new HashMap<>();
+    private static HashMap<String, RedsysPaymentMethod> codes = new HashMap<>();
 
     static {
-        for (PaymentMethod cc : values()) {
+        for (RedsysPaymentMethod cc : values()) {
             codes.put(cc.getCode(), cc);
         }
     }
 
-    private PaymentMethod(String code) {
+    RedsysPaymentMethod(String code) {
         this.code = code;
     }
 

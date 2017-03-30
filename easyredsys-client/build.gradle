@@ -3,9 +3,22 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 sourceCompatibility = 1.8
+ext.targetJavaVersion = JavaVersion.current().isJava7() ? JavaVersion.VERSION_1_7 : JavaVersion.VERSION_1_8
 
 configurations {
-    annotationProcessors
+    //annotationProcessors
+
+    if (targetJavaVersion.isJava7()) {
+    checkerFrameworkJavac {
+        description = 'a customization of the OpenJDK javac compiler with additional support for type annotations'
+    }
+  }
+  checkerFrameworkAnnotatedJDK {
+     description = 'a copy of JDK classes with Checker Framework type qualifers inserted'
+  }
+  checkerFramework {
+     description = 'The Checker Framework: custom pluggable types for Java'
+  }
 }
 
 dependencies {
@@ -19,7 +32,17 @@ dependencies {
     compile 'org.springframework:spring-core:4.3.7.RELEASE'
 
     compile 'org.checkerframework:checker:2.1.9'
-    annotationProcessors "org.checkerframework:checker:2.1.9"
+  //  annotationProcessors "org.checkerframework:checker:2.1.9"
+
+    ext.checkerFrameworkVersion = '2.1.9'
+    ext.jdkVersion = JavaVersion.current().isJava7() ? 'jdk7' : 'jdk8'
+    checkerFrameworkAnnotatedJDK "org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}"
+
+    if (targetJavaVersion.isJava7()) {
+        checkerFrameworkJavac "org.checkerframework:compiler:${checkerFrameworkVersion}"
+    }
+    checkerFramework "org.checkerframework:checker:${checkerFrameworkVersion}"
+    compile "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
 
 
     // Junit
